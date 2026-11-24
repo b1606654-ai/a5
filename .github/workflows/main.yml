@@ -7,7 +7,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: unzip -q ProCam.zip
+      - run: |
+          ls -R | head -50
+          Z=$(find . -iname 'ProCam*.zip' -printf '%T@ %p\n' | sort -n | tail -1 | cut -d' ' -f2-)
+          echo "Using: $Z"
+          unzip -qo "$Z"
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
